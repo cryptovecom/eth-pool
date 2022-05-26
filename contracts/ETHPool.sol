@@ -64,10 +64,14 @@ contract ETHPool is ERC20("sETH", "sETH") {
     }
 
     /**
-     * @notice receive ETH reward into the pool
+     * @notice add ETH reward to the pool
      * @dev only admin can add reward
      */
-    fallback() external payable {
+    function addReward() external payable {
         require(msg.sender == admin, "not admin");
+    }
+
+    fallback() external payable {
+        revert("do not send ETH directly");
     }
 }

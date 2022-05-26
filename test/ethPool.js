@@ -50,16 +50,12 @@ describe("ETHPool", function () {
   it("admin should add reward", async function () {
     const amount = ethers.utils.parseEther("5");
     await expect(
-      nonAdmin.sendTransaction({
-        from: nonAdmin.address,
-        to: pool.address,
+      pool.connect(nonAdmin).addReward({
         value: amount,
       })
     ).to.be.revertedWith("not admin");
 
-    await admin.sendTransaction({
-      from: admin.address,
-      to: pool.address,
+    await pool.connect(admin).addReward({
       value: amount,
     });
   });
@@ -83,9 +79,7 @@ describe("ETHPool", function () {
 
     // add 20 ETH for reward
     const reward = ethers.utils.parseEther("20");
-    await admin.sendTransaction({
-      from: admin.address,
-      to: pool.address,
+    await pool.connect(admin).addReward({
       value: reward,
     });
 
@@ -123,9 +117,7 @@ describe("ETHPool", function () {
 
     // add 20 ETH for reward
     const reward = ethers.utils.parseEther("20");
-    await admin.sendTransaction({
-      from: admin.address,
-      to: pool.address,
+    await pool.connect(admin).addReward({
       value: reward,
     });
 
